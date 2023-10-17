@@ -9,11 +9,11 @@ from flask import Flask , request, render_template
 
 app = Flask(__name__)
 
-model = load_model("animal1_class.h5",compile=False)
+model = load_model("/Users/casarulez/AI:ML externship/AI-ML-externship/ cnn_flask/animal.h5",compile=False)
                  
 @app.route('/')
 def index():
-    return render_template('index.html')
+    return render_template('/Users/casarulez/AI:ML externship/AI-ML-externship/ cnn_flask/templates/index.html')
 
 @app.route('/predict',methods = ['GET','POST'])
 def upload():
@@ -25,7 +25,6 @@ def upload():
         filepath = os.path.join(basepath,'uploads',f.filename)
         print("upload folder is ", filepath)
         f.save(filepath)
-        
         img = image.load_img(filepath,target_size = (64,64)) 
         x = image.img_to_array(img)
         print(x)
@@ -39,4 +38,4 @@ def upload():
         text = "The classified Animal is : " + str(index[preds[0]])
     return text
 if __name__ == '__main__':
-    app.run(debug = False, threaded = False)
+    app.run(debug = False, threaded = False, port=8)
